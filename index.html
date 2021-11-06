@@ -1,9 +1,15 @@
-<canvas id="game" width="1280" height="640" style="top: 0; left: 0; position: absolute"></canvas>
+<canvas id="game" style="top: 0; left: 0; position: absolute"></canvas>
 <script>
     const canvas = document.getElementById('game');
     const ctx = canvas.getContext('2d');
-    let pos = {x: 0, y: 0};
+    const pos = {x: 0, y: 0};
     let mouseDown = false;
+    window.onresize = () => {
+        let temp = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        [canvas.width, canvas.height] = [window.innerWidth,  window.innerHeight];
+        ctx.putImageData(temp, 0, 0);
+    };
+    window.onresize();
     canvas.onmousemove = e => {
         if (mouseDown) {
             ctx.moveTo(pos.x, pos.y);
